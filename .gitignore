@@ -1,0 +1,16 @@
+# Database credentials
+/includes/db.php
+
+# User-uploaded photos
+/public/foto-berdua/
+
+# Environment / secrets
+.env
+.env.*
+
+# IDE / editor files
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store

@@ -1,0 +1,212 @@
+@font-face {
+    font-family: PlaypenSans;
+    src: url(/fonts/static/PlaypenSans-Regular.ttf);
+}
+body{
+    background-color: rgb(12, 48, 80);
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* header elements */
+header{ 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 2px solid white;
+    background-color: rgb(10, 36, 59);
+}
+.spacer {
+    width: 1fr; 
+}
+#main-title{
+    font-family: PlaypenSans;
+    color: white;
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+#upload-icon{
+    width: 5vh;
+    height: 5vh;
+    color: white;  
+    cursor: pointer; 
+}
+#upload-button:hover{
+    width: 6vh;
+    height: 5vh;
+    color: rgb(185, 185, 185);   
+}
+#file-upload{
+    display: none;
+}
+#upload-button{
+    display: none;
+}
+
+/* main gallery */
+.gallery-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    align-items: start;
+}
+.photo{ 
+    overflow: hidden;
+    border: double 2px grey;
+}
+.photo img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+}
+.photo img:hover{
+    transform: scale(1.1);
+    cursor: pointer; 
+}
+
+/* photo full screen */
+#image-modal{
+    display: flex;
+
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.9);
+
+    justify-content: center;
+    align-items: center;
+
+    visibility: hidden;
+
+    transition: visibility 0s linear .1s;
+}
+#modal-image{
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    transform: scale(0.2);
+    transition: transform .05s ease;
+}
+#close-modal {
+    position: absolute;
+
+    top: 20px;
+    right: 30px;
+
+    font-size: 40px;
+    color: white;
+
+    cursor: pointer;
+}
+
+.photo-nav{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s ease;
+    user-select: none;
+}
+#image-before {
+    position: absolute;
+    font-weight: bold;
+
+    top: 50%;
+    left: 30px;
+
+    font-size: 40px;
+    color: white;
+
+    cursor: pointer;
+}
+#image-after {
+    position: absolute;
+    font-weight: bold;
+
+    top: 50%;
+    right: 30px;
+
+    font-size: 40px;
+    color: white;
+
+    cursor: pointer;
+}
+
+#delete-icon{
+    position: absolute;
+    color: white;
+
+    width: 5vh;
+    height: 5vh;
+
+    top: 90%;
+    right: 5%;
+
+    cursor: pointer;
+}
+#delete-icon:hover{
+    color: rgb(166, 166, 166);
+}
+#delete-button{
+    display: none;
+}
+
+
+#image-modal.show{
+    visibility: visible;
+
+    transition: visibility 0s;
+}
+#image-modal.show #modal-image{
+    transform: scale(1);
+}
+#image-modal.show .photo-nav{
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+/* buat layar kecil */
+@media screen and (max-width: 1000px){
+.gallery-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    align-items: start;
+}
+.photo img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+}
+#image-before {
+    position: absolute;
+    font-weight: bold;
+
+    top: 90%;
+    left: 40%;
+
+    font-size: 40px;
+    color: white;
+
+    cursor: pointer;
+}
+#image-after {
+    position: absolute;
+    font-weight: bold;
+
+    top: 90%;
+    right: 40%;
+
+    font-size: 40px;
+    color: white;
+
+    cursor: pointer;
+}
+}
