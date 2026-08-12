@@ -1,11 +1,10 @@
 <?php
-//error_reporting(0); // suppress error output
-//ini_set('display_errors', 0); // don't display errors to browser
-//ob_start();
-header('Content-Type: application/json');
 require __DIR__ . '/../includes/db.php';
-//ob_clean();
+require __DIR__ . '/../includes/auth.php';
 
+requireUploader();
+
+header('Content-Type: application/json');
 
 //Check for upload error
 if($_FILES['photo']['error'] !== UPLOAD_ERR_OK){

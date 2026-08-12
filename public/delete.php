@@ -1,5 +1,9 @@
 <?php
 require __DIR__ . '/../includes/db.php';
+require __DIR__ . '/../includes/auth.php';
+
+requireUploader();
+
 header("Content-Type: application/json");
 
 //get file data from javascript

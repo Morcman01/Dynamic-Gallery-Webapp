@@ -1,7 +1,6 @@
 <?php
-session_start();
-
 require __DIR__ . '/../includes/db.php';
+require __DIR__ . '/../includes/auth.php';
 
 header("Content-Type: application/json");
 
@@ -41,7 +40,7 @@ if($result->num_rows === 0){
 
     echo json_encode([
         'success' => false,
-        'message' => "Invalid username or password"
+        'message' => "Invalid username or password [DEBUG username not found]"
     ]);
 
     exit;
@@ -51,12 +50,12 @@ if($result->num_rows === 0){
 $user = $result -> fetch_assoc();
 
 //check password
-if(password_verify($password, $user['password_hash'])){
+if(!password_verify($password, $user['password_hash'])){
     http_response_code(401);
 
     echo json_encode([
         'success' => false,
-        'message' => "Invalid username or password"
+        'message' => "Invalid username or password [DEBUG incorrect password]"
     ]);
 
     exit;
