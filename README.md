@@ -58,35 +58,14 @@ The project was developed using a traditional LAMP architecture and does not rel
 
 The application follows a simple LAMP-based architecture:
 
-┌──────────────────────────────┐
-│          Frontend            │
-│       HTML / CSS / JS        │
-└──────────────┬───────────────┘
-               │
-               │ HTTP Requests
-               │
-       ┌───────┴────────┐
-       │                │
-       ▼                ▼
-    JSON API       Multipart Form
-       │                │
-       ▼                ▼
-┌──────────────────────────────┐
-│            PHP               │
-│                              │
-│  login.php                   │
-│  register.php                │
-│  upload.php                  │
-│  delete.php                  │
-│                              │
-│  auth.php                    │
-│  db.php                      │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│           MariaDB            │
-│                              │
-│  users                       │
-│  photos                      │
-└──────────────────────────────┘
+Frontend:
+HTML / CSS / JavaScript
+|
+▼
+JSON API & Multipart Form
+|
+▼
+login.php / register.php / upload.php / delete.php / auth.php / db.php
+| 
+▼
+MariaDB - Saves users and photos
