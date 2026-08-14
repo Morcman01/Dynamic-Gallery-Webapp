@@ -18,8 +18,15 @@ if(!isset($data['username']) || !isset($data['password'])){
     exit;
 }
 
-$username = $data['username'];
-$password = $data['password'];
+//username and password empty string check
+$username = trim($data['username'] ?? '');
+$password = $data['password'] ?? '';
+
+if ($username === '' || $password === '') {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Username and password required']);
+    exit;
+}
 
 
 //pull user data from database using given username
@@ -36,11 +43,11 @@ $result = $stmt->get_result();
 
 //if user doesn't exist
 if($result->num_rows === 0){
-    http_response_code(400);
+    http_response_code(401);
 
     echo json_encode([
         'success' => false,
-        'message' => "Invalid username or password [DEBUG username not found]"
+        'message' => "Invalid username or password"
     ]);
 
     exit;
@@ -55,7 +62,7 @@ if(!password_verify($password, $user['password_hash'])){
 
     echo json_encode([
         'success' => false,
-        'message' => "Invalid username or password [DEBUG incorrect password]"
+        'message' => "Invalid username or password"
     ]);
 
     exit;

@@ -17,10 +17,22 @@ require __DIR__ . '/../includes/db.php';
 
 <body>
     <header>
-        <div class="spacer"></div>
 
+        <!-- Profile Section -->
+        <div class="profile-bar">
+            <svg id="profile-icon" viewBox="0 0 640 640">
+                <path fill="currentColor" d="M463 448.2C440.9 409.8 399.4 384 352 384L288 384C240.6 384 199.1 409.8 177 448.2C212.2 487.4 263.2 512 320 512C376.8 512 427.8 487.3 463 448.2zM64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM320 336C359.8 336 392 303.8 392 264C392 224.2 359.8 192 320 192C280.2 192 248 224.2 248 264C248 303.8 280.2 336 320 336z"/>
+            </svg>
+
+            <!-- <span>Hey there,</span> -->
+        </div>
+
+
+        <!-- Title -->
         <h1 id="main-title">~Galeri Markus dan Taniah~</h1>
 
+
+        <!-- Upload Section -->
         <nav class="navbar">
 
             <form action="upload.php" method="POST" enctype="multipart/form-data">
@@ -43,9 +55,12 @@ require __DIR__ . '/../includes/db.php';
             </form>
 
         </nav>
+
     </header>
 
     <main>
+
+        <!-- Main Gallery -->
         <div class="gallery-container">
             <?php 
             $result = $conn -> query("SELECT * from photos");
@@ -67,6 +82,8 @@ require __DIR__ . '/../includes/db.php';
             ?>
         </div>
 
+
+        <!-- Full Screen Image -->
         <div id="image-modal">
             <span id="close-modal">&times;</span>
 
@@ -81,6 +98,70 @@ require __DIR__ . '/../includes/db.php';
             
             <img id="modal-image" src="" alt="">
         </div>
+
+
+        <!-- Profile  -->
+        <div id="profile-modal">
+
+            <div id="login-bar">
+                <span class="close-profile-modal">&times;</span>
+
+                <h2>My Profile</h2>
+
+                <form id="login-form">
+
+                    <input
+                        type="text"
+                        name="username"
+                        id="login-username"
+                        placeholder="Username"
+                    >
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="login-password"
+                        placeholder="Password"
+                    >
+
+                    <button type="submit">Login</button>
+                </form>
+
+                <div id="login-foot">Don't have an account? register here!</div>
+
+            </div>
+
+            <div id="register-bar">
+                <span class="close-profile-modal">&times;</span>
+
+                <h2>My Profile</h2>
+
+                <form id="register-form">
+
+                    <input
+                        type="text"
+                        name="username"
+                        id="register-username"
+                        placeholder="Username"
+                    >
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="register-password"
+                        placeholder="Password"
+                    >
+
+                    <button type="submit">Register</button> 
+                </form>
+
+                <div id="register-foot">Already have an account? login here!</div>
+
+            </div>
+
+        </div>
+
+
     </main>    
 
 </body>

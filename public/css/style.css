@@ -8,6 +8,7 @@ body{
     margin: 0;
 }
 
+
 /* header elements */
 header{ 
     display: flex;
@@ -17,23 +18,181 @@ header{
     border-bottom: 2px solid white;
     background-color: rgb(10, 36, 59);
 }
-.spacer {
+
+/* Profile Outer */
+.profile-bar {
     width: 1fr; 
 }
+#profile-icon {
+    min-width: 5vh;
+    min-height: 5vh;
+    color: white;  
+    cursor: pointer; 
+}
+#profile-icon:hover{
+    width: 5vh;
+    height: 5vh;
+    color: rgb(185, 185, 185);   
+}
+
+/* Profile Modal */
+#profile-modal {
+    display: flex;
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.9);
+
+    justify-content: center;
+    align-items: center;
+
+    visibility: hidden;
+}
+#profile-modal.show{
+    visibility: visible;
+}
+.close-profile-modal {
+    margin-left: auto;
+    margin-right: 10px;
+
+    font-size: 40px;
+    color: white;
+
+    cursor: pointer;
+}
+#profile-modal h2{
+    color: white;
+    margin-top: 10px;
+    font-family: PlaypenSans;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+#profile-modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    width: 70%;
+
+    margin-top: 20px;
+}
+#profile-modal input {
+    padding: 10px;
+
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;   
+}
+
+/* Login Internals */
+#login-bar {
+    border: 1px double white;
+
+    width: 100%;
+    max-width: 400px;
+
+    aspect-ratio: 1/1;
+
+    background-color: rgb(21, 58, 90);
+
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+#login-bar.show {
+    display: flex;
+}
+#login-bar button{
+    width: 120px;
+    height: 40px;
+
+    font-family: 'Trebuchet MS';
+    font-size: 1.5rem;
+    color: white;
+
+    text-decoration: underline;
+    
+    cursor: pointer;
+    
+    border-radius: 15px;
+    border: none;
+    background-color: transparent;
+}
+#login-foot{
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+    color: rgb(255, 248, 248);
+    user-select: none;
+
+    cursor: pointer;
+}
+
+
+/* Register */
+#register-bar {
+    border: 1px double white;
+
+    width: 100%;
+    max-width: 400px;
+
+    aspect-ratio: 1/1;
+
+    background-color: rgb(21, 58, 90);
+
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+#register-bar.show {
+    display: flex;
+}
+#register-bar button{
+    width: 120px;
+    height: 40px;
+
+    font-family: 'Trebuchet MS';
+    font-size: 1.5rem;
+    color: white;
+
+    text-decoration: underline;
+    
+    cursor: pointer;
+    
+    border-radius: 15px;
+    border: none;
+    background-color: transparent;
+}
+#register-foot{
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+    color: rgb(255, 248, 248);
+    user-select: none;
+
+    cursor: pointer;
+}
+
+
+/* Title */
 #main-title{
     font-family: PlaypenSans;
     color: white;
     margin: 0;
     font-size: clamp(1.5rem, 4vw, 3rem);
+    user-select: none;
 }
+
+
+/* Upload External */
 #upload-icon{
     width: 5vh;
     height: 5vh;
     color: white;  
     cursor: pointer; 
 }
-#upload-button:hover{
-    width: 6vh;
+#upload-icon:hover{
+    width: 5vh;
     height: 5vh;
     color: rgb(185, 185, 185);   
 }
@@ -44,6 +203,7 @@ header{
     display: none;
 }
 
+
 /* main gallery */
 .gallery-container{
     display: grid;
@@ -52,6 +212,7 @@ header{
     padding: 1rem;
     align-items: start;
 }
+
 .photo{ 
     overflow: hidden;
     border: double 2px grey;
