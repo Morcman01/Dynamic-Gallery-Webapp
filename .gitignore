@@ -1,10 +1,12 @@
 # Database credentials
 /includes/db.php
+/includes/env.php
 
 # User-uploaded photos
 /public/foto-berdua/
 
 # Environment / secrets
+/logs/php-error.log
 .env
 .env.*
 

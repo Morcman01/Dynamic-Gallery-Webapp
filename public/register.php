@@ -6,10 +6,7 @@ header("Content-Type: application/json");
 $data = json_decode(file_get_contents('php://input'), true);
 
 
-//check for empty username and password
-$username = trim($data['username'] ?? '');
-$password = $data['password'] ?? '';
-
+//check for empty username and password (null value)
 if(!isset($data['username']) || !isset($data['password'])){
     http_response_code(400);
 
@@ -18,6 +15,18 @@ if(!isset($data['username']) || !isset($data['password'])){
         'message' => "Username and password required"
     ]);
 
+    exit;
+}
+
+//sanitise and process user data
+$username = trim($data['username']);
+$password = $data['password'];
+
+
+//check for empty space input
+if ($username === '' || $password === '') {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => "Username and password required"]);
     exit;
 }
 
@@ -32,9 +41,6 @@ if(strlen($data['password']) < 8 || strlen($data['password']) > 20){
 
     exit;
 }
-
-//pull username data to variable
-$username = $data['username'];
 
 //check for special chars in username 
 if(!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username)){
@@ -53,9 +59,11 @@ $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
 
 //sql query, makes new user
-$sql = "INSERT into users (username, password_hash) VALUES (?, ?, ?)";
+$role = 'viewer';
+
+$sql = "INSERT into users (username, password_hash, role) VALUES (?, ?, ?)";
 $stmt = $conn -> prepare($sql);
-$stmt -> bind_param("sss", $username, $password_hash, 'viewer');
+$stmt -> bind_param("sss", $username, $password_hash, $role);
 
 if($stmt->execute()){
     http_response_code(201);

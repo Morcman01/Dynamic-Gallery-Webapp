@@ -21,21 +21,33 @@ header{
 
 /* Profile Outer */
 .profile-bar {
+    flex: 1;
     width: 1fr; 
+    display: flex;
+    align-items: center;
 }
 #profile-icon {
-    min-width: 5vh;
-    min-height: 5vh;
+    width: 6vh;
+    aspect-ratio: 1/1;
     color: white;  
     cursor: pointer; 
 }
 #profile-icon:hover{
-    width: 5vh;
-    height: 5vh;
     color: rgb(185, 185, 185);   
 }
+#greeting{
+    color: white;
+    font-family: PlaypenSans;
+    margin-left: 10px;
+    font-size: 1vw;
+}
+#profile-desc{
+    color: white;
+    font-family: PlaypenSans;
+    font-size: clamp(1rem, 2rem, 2rem)
+}
 
-/* Profile Modal */
+/* Login & Register Modal */
 #profile-modal {
     display: flex;
     position: fixed;
@@ -181,10 +193,17 @@ header{
     margin: 0;
     font-size: clamp(1.5rem, 4vw, 3rem);
     user-select: none;
+    border: 1px;
+    flex-shrink: 0;
 }
 
 
 /* Upload External */
+.navbar{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
 #upload-icon{
     width: 5vh;
     height: 5vh;
@@ -211,6 +230,15 @@ header{
     gap: 1rem;
     padding: 1rem;
     align-items: start;
+}
+.gallery-locked-msg {
+    color: white;
+    text-align: center;
+    width: 100%;
+    padding: 4rem 1rem;
+    font-family: PlaypenSans;
+    font-size: 1.5rem;
+    opacity: 0.8;
 }
 
 .photo{ 
@@ -326,6 +354,27 @@ header{
 #image-modal.show .photo-nav{
     visibility: visible;
     opacity: 1;
+}
+
+
+/* Account Bar */
+#account-bar {
+    border: 1px double white;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1/1;
+    background-color: rgb(21, 58, 90);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#account-bar.show { display: flex; }
+#account-bar p { color: white; text-align: center; }
+#account-bar button {
+    width: 120px; height: 40px;
+    font-family: 'Trebuchet MS'; font-size: 1.5rem; color: white;
+    text-decoration: underline; cursor: pointer;
+    border-radius: 15px; border: none; background-color: transparent;
 }
 
 
