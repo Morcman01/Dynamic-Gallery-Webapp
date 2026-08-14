@@ -193,7 +193,6 @@ header{
     margin: 0;
     font-size: clamp(1.5rem, 4vw, 3rem);
     user-select: none;
-    border: 1px;
     flex-shrink: 0;
 }
 
@@ -380,17 +379,18 @@ header{
 
 
 /* buat layar kecil */
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1200px){
+/* Gallery and photos */
 .gallery-container{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
     padding: 1rem;
     align-items: start;
 }
 .photo img{
     width: 100%;
-    height: 300px;
+    height: 150px;
     object-fit: cover;
     display: block;
     transition: transform 0.3s;
@@ -418,5 +418,27 @@ header{
     color: white;
 
     cursor: pointer;
+}
+
+
+/* Header elements */
+#main-title{
+    font-family: PlaypenSans;
+    color: white;
+    margin: 0;
+    font-size: clamp(1rem, 2vw, 2vw);
+    user-select: none;
+    flex-shrink: 1;
+}
+#upload-icon{
+    width: 3.5vh;
+    aspect-ratio: 1/1;
+}
+#profile-icon {
+    width: 3.5vh;
+    aspect-ratio: 1/1;
+}
+#greeting{
+    display: none;
 }
 }

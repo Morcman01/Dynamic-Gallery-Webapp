@@ -50,8 +50,7 @@ if(move_uploaded_file($tmp, $destination)){                  //pindahkan file fo
     $sql = "INSERT INTO photos (filename) VALUES (?)";       //query ke database
 
     $stmt = $conn->prepare($sql);   
-    $stmt->bind_param("s", $filename);                       //????
-    $stmt->execute();
+    $stmt->bind_param("s", $filename); 
 
     if (!$stmt->execute()) {
         unlink($destination);
