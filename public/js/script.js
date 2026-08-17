@@ -22,12 +22,19 @@ const registerForm = document.getElementById("register-form");  //null if logged
 const accountBar = document.getElementById("account-bar");      // null if guest
 const logoutButton = document.getElementById("logout-button");  // null if guest
 
-const uploadForm = document.querySelector('.navbar form');      // null unless uploader
+const uploadForm = document.getElementById('upload-form');      // null unless uploader
 const fileUpload = document.getElementById('file-upload');      // null unless uploader
 
 const photos = document.querySelectorAll(".photo img");
 
 let currentIndex = 0;
+
+//input html encoding 
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
 
 //Profile modal
 profileIcon.addEventListener("click", () => {
@@ -186,21 +193,23 @@ modal.addEventListener("click", (event) => {
 
 // ─── FILE SIZE CHECK ───
 if (fileUpload){
-    document.getElementById('file-upload').addEventListener('change', function(){
-        if(!this.files[0]) return;
-        
-        const file = this.files[0];
+    fileUpload.addEventListener('change', function(){
+        if(!this.files.length) return;
+    
         const max_size = 8 * 1024 * 1024;
 
-        if(file.size > max_size){
-            Swal.fire({
-                icon: 'warning',
-                title: 'File size too big!',
-                text: 'Max 8MB'
-            });
-            this.value = '';
-            return;
-        }
+        for(const file of this.files){
+            if(file.size > max_size){
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'File size too big!',
+                    text: 'Max 8MB'
+                });
+
+                this.value = '';
+                return;
+            }
+        }        
 
         //auto submit file
         this.closest('form').requestSubmit();
@@ -210,7 +219,7 @@ if (fileUpload){
 
 // ─── UPLOAD FORM SUBMIT ───
 if(uploadForm){
-    document.querySelector('form').addEventListener('submit', async function(e){
+    uploadForm.addEventListener('submit', async function(e){
         e.preventDefault();
         
         const formData = new FormData(this);
@@ -224,21 +233,39 @@ if(uploadForm){
             const text = await response.text();
             const result = JSON.parse(text.trim());
             
-            if(result.success){
+            if (result.success && result.failed.length === 0) {
+                // full success
                 Swal.fire({
                     icon: 'success',
                     title: 'Uploaded!',
-                    text: 'Photo uploaded',
+                    text: `${result.uploaded} photo(s) uploaded`,
                     timer: 2000,
                     showConfirmButton: false
-                }).then(() => {
-                    location.reload();
-                });
+                }).then(() => location.reload());
+
+            } else if (result.success && result.failed.length > 0) {
+                // partial success
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Upload partially completed',
+                    html: `
+                        <p>${result.uploaded} photo(s) uploaded successfully.</p>
+                        <p>The following files failed:</p>
+                        <ul style="text-align: left;">
+                            ${result.failed.map(file => `<li>${escapeHtml(file)}</li>`).join('')}
+                        </ul>
+                    `,
+                    confirmButtonText: "OK"
+                }).then(() => location.reload());
+
             } else {
+                // total failure
                 Swal.fire({
                     icon: 'error',
                     title: 'Upload failed',
-                    text: result.message
+                    html: result.failed && result.failed.length
+                        ? `<ul style="text-align:left;">${result.failed.map(f => `<li>${escapeHtml(f)}</li>`).join('')}</ul>`
+                        : (result.message || 'Something went wrong')
                 });
             }
         } catch(err) {

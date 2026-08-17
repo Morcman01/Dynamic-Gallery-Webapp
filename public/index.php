@@ -42,7 +42,7 @@ $isUploader = $isLoggedIn && $role === 'uploader';
         <!-- Upload Section -->
         <nav class="navbar">
             <?php if ($isUploader):?> 
-            <form action="upload.php" method="POST" enctype="multipart/form-data">
+            <form action="upload.php" method="POST" enctype="multipart/form-data" id="upload-form">
                 <label for="file-upload">
 
                     <div>
@@ -54,7 +54,7 @@ $isUploader = $isLoggedIn && $role === 'uploader';
                     
                 </label>
 
-                <input id="file-upload" type="file" name="photo">   
+                <input id="file-upload" type="file" name="photo[]" multiple>   
 
                 <button type="submit" id="upload-button">Upload</button>
                 
