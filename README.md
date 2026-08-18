@@ -57,7 +57,6 @@ The following items have not yet been implemented and are noted here for transpa
 
 - TLS termination is not configured within this repository. The deployed instance uses a third-party tunnel for HTTPS.
 - No automated test coverage for authentication, rate-limiting, or CSRF verification logic.
-- Rate limiting is applied to login only; registration is not currently throttled.
 
 ---
 
@@ -184,5 +183,4 @@ Security considerations were not treated as separate from feature development. E
 ## Planned Work
 
 - Automated tests for authentication, rate-limiting, and CSRF verification logic
-- Registration rate limiting
 - TLS termination configured directly rather than delegated to a tunnel provider

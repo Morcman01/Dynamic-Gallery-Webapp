@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../includes/db.php';
 require __DIR__ . '/../includes/auth.php';
-require __DIR__ . '/../includes/login_limit.php';
+require __DIR__ . '/../includes/rate_limit.php';
 require __DIR__ . '/../includes/csrf.php';
 
 header("Content-Type: application/json");
