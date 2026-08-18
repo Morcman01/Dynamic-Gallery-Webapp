@@ -1,7 +1,10 @@
 <?php
 require __DIR__ . '/../includes/auth.php';
+require __DIR__ . '/../includes/csrf.php';
 
 header("Content-Type: application/json");
+
+requireCsrf();
 
 //clear session data
 $_SESSION = [];

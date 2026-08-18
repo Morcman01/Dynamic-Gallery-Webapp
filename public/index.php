@@ -1,14 +1,21 @@
 <?php 
 require __DIR__ . '/../includes/db.php';
 require __DIR__ . '/../includes/auth.php';
+require __DIR__ . '/../includes/csrf.php';
 
 $isLoggedIn = isLoggedIn();
 $role = $isLoggedIn ? $_SESSION['role'] : null;
 $isUploader = $isLoggedIn && $role === 'uploader';
+$csrfToken = generateCsrfToken();
+
+header("Content-Type: text/html; charset=UTF-8");
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Pragma: no-cache");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+    
 
 <head>
     <meta charset="UTF-8">

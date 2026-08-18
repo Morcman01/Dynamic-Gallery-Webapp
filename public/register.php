@@ -1,7 +1,10 @@
 <?php
 require __DIR__ . '/../includes/db.php';
+require __DIR__ . '/../includes/csrf.php';
 
 header("Content-Type: application/json");
+
+requireCsrf();
 
 $data = json_decode(file_get_contents('php://input'), true);
 

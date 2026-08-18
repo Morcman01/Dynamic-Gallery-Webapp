@@ -1,9 +1,12 @@
 <?php
 require __DIR__ . '/../includes/db.php';
 require __DIR__ . '/../includes/auth.php';
-REQUIRE __DIR__ . '/../includes/login_limit.php';
+require __DIR__ . '/../includes/login_limit.php';
+require __DIR__ . '/../includes/csrf.php';
 
 header("Content-Type: application/json");
+
+requireCsrf();
 
 //get json data from javascript
 $data = json_decode(file_get_contents('php://input'), true);
@@ -93,6 +96,7 @@ clearAttempts($conn, $username);
 
 //auth successful
 session_regenerate_id(true);
+unset($_SESSION['csrf_token']);
 
 $_SESSION['user_id'] = $user['id'];
 $_SESSION['username'] = $user['username'];

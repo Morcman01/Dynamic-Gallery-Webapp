@@ -25,6 +25,8 @@ const logoutButton = document.getElementById("logout-button");  // null if guest
 const uploadForm = document.getElementById('upload-form');      // null unless uploader
 const fileUpload = document.getElementById('file-upload');      // null unless uploader
 
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
 const photos = document.querySelectorAll(".photo img");
 
 let currentIndex = 0;
@@ -72,7 +74,10 @@ closeProfile.forEach(closeButton => {
 if (logoutButton) {
     logoutButton.addEventListener("click", async () => {
         try {
-            await fetch('logout.php', { method: 'POST' });
+            await fetch('logout.php', { 
+                method: 'POST',
+                headers: { "X-CSRF-Token": csrfToken } 
+            });
         } finally {
             location.reload();
         }
@@ -227,6 +232,7 @@ if(uploadForm){
         try {
             const response = await fetch('upload.php', {
                 method: 'POST',
+                headers: { "X-CSRF-Token": csrfToken },
                 body: formData
             });
             
