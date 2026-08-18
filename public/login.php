@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/../includes/db.php';
 require __DIR__ . '/../includes/auth.php';
+REQUIRE __DIR__ . '/../includes/login_limit.php';
 
 header("Content-Type: application/json");
 
@@ -28,6 +29,21 @@ if ($username === '' || $password === '') {
     exit;
 }
 
+//login attempts check
+$rateCheck = isLockedOut($conn, $username);
+
+if($rateCheck['limited']){
+    http_response_code(429);
+    echo json_encode([
+        'success' => false,
+        'message' => "Too many failed login attempts, try again in 15 minutes"
+    ]);
+    exit;
+}
+
+if (mt_rand(1, 100) === 1) {
+    pruneOldAttempts($conn);
+}
 
 //pull user data from database using given username
 $sql = "SELECT id, username, password_hash, role
@@ -45,6 +61,8 @@ $result = $stmt->get_result();
 if($result->num_rows === 0){
     http_response_code(401);
 
+    recordFailedAttempt($conn, $username);
+
     echo json_encode([
         'success' => false,
         'message' => "Invalid username or password"
@@ -60,6 +78,8 @@ $user = $result -> fetch_assoc();
 if(!password_verify($password, $user['password_hash'])){
     http_response_code(401);
 
+    recordFailedAttempt($conn, $username);
+
     echo json_encode([
         'success' => false,
         'message' => "Invalid username or password"
@@ -67,6 +87,9 @@ if(!password_verify($password, $user['password_hash'])){
 
     exit;
 }
+
+//clear rate limiting 
+clearAttempts($conn, $username);
 
 //auth successful
 session_regenerate_id(true);

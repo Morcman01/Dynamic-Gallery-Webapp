@@ -282,6 +282,8 @@ header{
 #close-modal {
     position: absolute;
 
+    z-index: -1;
+
     top: 20px;
     right: 30px;
 
@@ -289,6 +291,8 @@ header{
     color: white;
 
     cursor: pointer;
+
+    user-select: none;
 }
 
 .photo-nav{
