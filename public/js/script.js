@@ -125,7 +125,7 @@ if (deleteIcon){
                 try{
                     const response = await fetch('delete.php', {
                         method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
+                        headers: {'Content-Type': 'application/json', "X-CSRF-Token": csrfToken},
                         body: JSON.stringify({filename: filename})
                     });
 
@@ -296,7 +296,7 @@ if(registerForm){
         try {
             const response = await fetch("register.php", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken},
                 body: JSON.stringify({ username, password })
             });
 
@@ -344,7 +344,7 @@ if(loginForm){
         try {
             const response = await fetch("login.php", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken},
                 body: JSON.stringify({ username, password })
             });
 

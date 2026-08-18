@@ -3,10 +3,11 @@ require __DIR__ . '/../includes/db.php';
 require __DIR__ . '/../includes/auth.php';
 require __DIR__ . '/../includes/csrf.php';
 
+$csrfToken = generateCsrfToken();
 $isLoggedIn = isLoggedIn();
 $role = $isLoggedIn ? $_SESSION['role'] : null;
 $isUploader = $isLoggedIn && $role === 'uploader';
-$csrfToken = generateCsrfToken();
+
 
 header("Content-Type: text/html; charset=UTF-8");
 header("Cache-Control: no-store, no-cache, must-revalidate");
@@ -20,6 +21,7 @@ header("Pragma: no-cache");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="csrf-token" content="<?= htmlspecialchars($csrfToken) ?>">
     <link rel="icon" type="image/jpeg" href="/images/favicon.jpg">
     <title>My Galeri :D</title>
     <link rel="stylesheet" href="css/style.css">
