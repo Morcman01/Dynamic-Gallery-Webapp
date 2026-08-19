@@ -1,4 +1,13 @@
 <?php
+function getRequestHeader(string $name): string {
+    foreach (getallheaders() as $key => $value) {
+        if (strcasecmp($key, $name) === 0) {
+            return $value;
+        }
+    }
+    return '';
+}
+
 function generateCsrfToken(): string {
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -7,8 +16,7 @@ function generateCsrfToken(): string {
 }
 
 function requireCsrf(): void {
-    $headers = getallheaders();
-    $submittedToken = $headers['X-CSRF-Token'] ?? '';
+    $submittedToken = getRequestHeader('X-CSRF-Token');
 
     if (
         empty($_SESSION['csrf_token']) ||
